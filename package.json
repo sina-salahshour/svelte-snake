@@ -38,6 +38,7 @@
 	"type": "module",
 	"dependencies": {
 		"immer": "^10.0.2",
-		"svelte-french-toast": "1.0.4-beta.0"
+		"svelte-french-toast": "1.0.4-beta.0",
+		"svelte-gestures": "^1.5.2"
 	}
 }

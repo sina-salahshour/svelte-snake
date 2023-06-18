@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { swipe } from 'svelte-gestures';
 	import { create_fake_array } from '$lib/utils/create-fake-array.util';
 	import { tick } from 'svelte';
 	import { linear } from 'svelte/easing';
@@ -99,10 +100,7 @@
 	) {
 		return x1 === x2 && y1 === y2;
 	}
-</script>
-
-<svelte:window
-	on:keydown={(e) => {
+	function handle_controls<T extends { key: string }>(e: T) {
 		const head_direction = snake.at(-1)?.direction;
 		const is_one_block = snake.length === 1;
 		switch (e.key) {
@@ -123,12 +121,32 @@
 					direction = directions.right;
 				break;
 		}
-	}}
-/>
+	}
+	function map_direction_to_key(direction: string) {
+		switch (direction) {
+			case 'left':
+				return 'ArrowLeft';
+			case 'right':
+				return 'ArrowRight';
+			case 'top':
+				return 'ArrowUp';
+			case 'bottom':
+				return 'ArrowDown';
+		}
+		return '';
+	}
+</script>
+
+<svelte:window on:keydown={handle_controls} />
 <div
 	class="flex flex-col m-2 w-fit mx-auto border-[2px] absolute left-1/2 -translate-x-1/2"
 	in:fade
 	out:fade
+	use:swipe
+	on:swipe={(e) => {
+		e.preventDefault();
+		handle_controls({ key: map_direction_to_key(e.detail.direction) });
+	}}
 >
 	{#each create_fake_array(board_size) as row}
 		<div class="flex items-center justify-center">
