@@ -138,15 +138,17 @@
 </script>
 
 <svelte:window on:keydown={handle_controls} />
-<div
-	class="flex flex-col m-2 w-fit mx-auto border-[2px] absolute left-1/2 -translate-x-1/2"
-	in:fade
-	out:fade
+<svelte:body
 	use:swipe
 	on:swipe={(e) => {
 		e.preventDefault();
 		handle_controls({ key: map_direction_to_key(e.detail.direction) });
 	}}
+/>
+<div
+	class="flex flex-col m-2 w-fit mx-auto border-[2px] absolute left-1/2 -translate-x-1/2"
+	in:fade
+	out:fade
 >
 	{#each create_fake_array(board_size) as row}
 		<div class="flex items-center justify-center">

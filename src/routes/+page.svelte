@@ -18,7 +18,7 @@
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="https://snake.drhexe.ir/images/snake-image.png" />
 </svelte:head>
-<div class="relative mx-auto">
+<div class="relative w-screen h-screen mx-auto">
 	{#key key}
 		<Game on:click={restart_game} />
 	{/key}

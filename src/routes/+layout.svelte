@@ -12,6 +12,6 @@
 <style lang="postcss" global>
 	body {
 		@apply antialiased;
-		@apply bg-black;
+		@apply bg-black w-full;
 	}
 </style>
