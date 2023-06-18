@@ -4,6 +4,7 @@
 	import { linear } from 'svelte/easing';
 	import { blur, fade, type TransitionConfig } from 'svelte/transition';
 
+	type Vec = [number, number];
 	const board_size = 25;
 	const directions = {
 		up: [-1, 0],
@@ -92,7 +93,6 @@
 			return snake_move_anim(node, options);
 		}
 	}
-	type Vec = [number, number];
 	function is_pos_equal(
 		[x1, y1]: Vec | undefined = [NaN, NaN],
 		[x2, y2]: Vec | undefined = [NaN, NaN]
@@ -101,26 +101,26 @@
 	}
 </script>
 
-<svelte:head>
-	<title>snake</title>
-</svelte:head>
-
 <svelte:window
 	on:keydown={(e) => {
 		const head_direction = snake.at(-1)?.direction;
 		const is_one_block = snake.length === 1;
 		switch (e.key) {
 			case 'ArrowUp':
-				if (!is_pos_equal(head_direction, directions.down) || is_one_block) direction = [-1, 0];
+				if (!is_pos_equal(head_direction, directions.down) || is_one_block)
+					direction = directions.up;
 				break;
 			case 'ArrowDown':
-				if (!is_pos_equal(head_direction, directions.up) || is_one_block) direction = [1, 0];
+				if (!is_pos_equal(head_direction, directions.up) || is_one_block)
+					direction = directions.down;
 				break;
 			case 'ArrowLeft':
-				if (!is_pos_equal(head_direction, directions.right) || is_one_block) direction = [0, -1];
+				if (!is_pos_equal(head_direction, directions.right) || is_one_block)
+					direction = directions.left;
 				break;
 			case 'ArrowRight':
-				if (!is_pos_equal(head_direction, directions.left) || is_one_block) direction = [0, 1];
+				if (!is_pos_equal(head_direction, directions.left) || is_one_block)
+					direction = directions.right;
 				break;
 		}
 	}}
