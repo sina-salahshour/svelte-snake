@@ -101,22 +101,26 @@
 	}
 </script>
 
+<svelte:head>
+	<title>snake</title>
+</svelte:head>
+
 <svelte:window
 	on:keydown={(e) => {
 		const head_direction = snake.at(-1)?.direction;
 		const is_one_block = snake.length === 1;
 		switch (e.key) {
 			case 'ArrowUp':
-				if (is_pos_equal(head_direction, [1, 0]) || is_one_block) direction = [-1, 0];
+				if (!is_pos_equal(head_direction, directions.down) || is_one_block) direction = [-1, 0];
 				break;
 			case 'ArrowDown':
-				if (is_pos_equal(head_direction, [-1, 0]) || is_one_block) direction = [1, 0];
+				if (!is_pos_equal(head_direction, directions.up) || is_one_block) direction = [1, 0];
 				break;
 			case 'ArrowLeft':
-				if (is_pos_equal(head_direction, [0, 1]) || is_one_block) direction = [0, -1];
+				if (!is_pos_equal(head_direction, directions.right) || is_one_block) direction = [0, -1];
 				break;
 			case 'ArrowRight':
-				if (is_pos_equal(head_direction, [0, 1]) || is_one_block) direction = [0, 1];
+				if (!is_pos_equal(head_direction, directions.left) || is_one_block) direction = [0, 1];
 				break;
 		}
 	}}
